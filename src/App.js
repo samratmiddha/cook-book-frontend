@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import {useSelector} from "react-redux"
+import {ThemeProvider} from "@emotion/react"
+import {createTheme} from "@mui/material"
+import {defaultTheme} from "./theme"
+import {palettes} from "./palette"
+import Dashboard from "./components/dashboard"
+import Login from "./components/login"
+import SignUp from "./components/signUp"
+import Recipe from "./components/recipe"
+import "@fontsource/oleo-script/400.css"
+import "@fontsource/oleo-script/700.css"
+import {CustomSnackbar} from "./components/customSnackbar"
 
 function App() {
+  const themeName = useSelector((state) => state.theme.theme)
+  const theme = createTheme({
+    ...defaultTheme,
+    palette: palettes[themeName],
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<Dashboard />}></Route>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="signUp" element={<SignUp />}></Route>
+          <Route path="recipes/:recipe/" element={<Recipe />}></Route>
+        </Routes>
+      </BrowserRouter>
+      <CustomSnackbar />
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
