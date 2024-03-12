@@ -56,23 +56,25 @@ export default function RecipeCard({data}) {
           </Typography>
           <Typography variant="medium">{data.description}</Typography>
         </CardContent>
-        <Box sx={{position: "absolute", top: 0, right: 0, padding: "8px"}}>
-          {user.favourites && user.favourites.includes(data.id) ? (
-            <FavoriteIcon
-              color="error"
-              onClick={(e) => {
-                handleToggleFavorite(e, data.id)
-              }}
-            />
-          ) : (
-            <FavoriteBorderIcon
-              color="disabled"
-              onClick={(e) => {
-                handleToggleFavorite(e, data.id)
-              }}
-            />
-          )}
-        </Box>
+        {user.username && (
+          <Box sx={{position: "absolute", top: 0, right: 0, padding: "8px"}}>
+            {user.favourites && user.favourites.includes(data.id) ? (
+              <FavoriteIcon
+                color="error"
+                onClick={(e) => {
+                  handleToggleFavorite(e, data.id)
+                }}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                color="disabled"
+                onClick={(e) => {
+                  handleToggleFavorite(e, data.id)
+                }}
+              />
+            )}
+          </Box>
+        )}
       </CardActionArea>
     </Card>
   )
