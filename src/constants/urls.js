@@ -1,4 +1,4 @@
-export const BACKEND_HOST = "http://localhost:8000/"
+export const BACKEND_HOST = "http://16.171.11.172/"
 
 export const RECIPES = "api/recipes/"
 
