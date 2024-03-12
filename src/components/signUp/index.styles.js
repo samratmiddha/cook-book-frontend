@@ -50,6 +50,7 @@ export const styles = {
     width: "100%",
   },
   textFieldInput: (theme) => ({
+    color: theme.palette.primary.contrastText,
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.secondary.main,
     },
