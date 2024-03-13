@@ -2,7 +2,7 @@ import {Popover, Box, Typography, Button} from "@mui/material"
 import {styles} from "./index.styles"
 import {useDispatch, useSelector} from "react-redux"
 import {useNavigate} from "react-router"
-import {logout} from "../../../features/userSlice"
+import {logout, setUser} from "../../../features/userSlice"
 
 export default function ProfilePopover({anchorEl, setAnchorEl}) {
   const dispatch = useDispatch()
@@ -13,7 +13,10 @@ export default function ProfilePopover({anchorEl, setAnchorEl}) {
   }
   const handleLogout = () => {
     dispatch(logout()).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") navigate("/login")
+      if (res.meta.requestStatus === "fulfilled") {
+        setUser({})
+        handleClose()
+      }
     })
   }
   const user = useSelector((state) => state.user.user)

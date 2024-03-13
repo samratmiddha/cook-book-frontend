@@ -32,10 +32,16 @@ export const styles = {
     },
   }),
   signUpButton: (theme) => ({
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
     "&:hover": {
       backgroundColor: theme.palette.secondary.main,
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  }),
+  signInButton: (theme) => ({
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "1rem",
     },
   }),
   activeLink: (theme) => ({

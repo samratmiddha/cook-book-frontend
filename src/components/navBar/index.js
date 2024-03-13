@@ -98,7 +98,7 @@ export default function NavBar({homeRef, recipesRef, aboutMeRef}) {
                 Sign In
               </Button>
               <Button
-                variant="filled"
+                variant="contained"
                 color="secondary"
                 sx={styles.signUpButton}
                 onClick={() => {

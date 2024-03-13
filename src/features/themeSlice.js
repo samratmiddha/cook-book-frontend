@@ -1,13 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit"
+import Cookies from "js-cookie"
 
 export const themeSlice = createSlice({
   name: "theme",
   initialState: {
-    theme: "light",
+    theme: Cookies.get("theme") || "light",
   },
   reducers: {
     changeTheme: (state, action) => {
       state.theme = action.payload
+      Cookies.set("theme", action.payload)
     },
   },
 })

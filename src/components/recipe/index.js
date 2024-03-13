@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemText,
   Button,
+  useTheme,
 } from "@mui/material"
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
@@ -15,6 +16,7 @@ import {fetchRecipe, deleteRecipe} from "../../features/recipeSlice"
 import {fetchUser} from "../../features/userSlice"
 import dummyImage from "../../assets/dummy-image-square.jpg"
 import EditRecipeModal from "./editRecipeModal"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 export default function Recipe() {
   const dispatch = useDispatch()
@@ -23,6 +25,9 @@ export default function Recipe() {
   const user = useSelector((state) => state.user.user)
   const recipe_data = useSelector((state) => state.recipe.recipe)
   const [editRecipeModalOpen, setEditRecipeModalOpen] = useState(false)
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
+  const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down("xs"))
   useEffect(() => {
     dispatch(fetchUser())
     dispatch(fetchRecipe({recipe}))
@@ -48,7 +53,13 @@ export default function Recipe() {
         <Box sx={styles.imageContainer}>
           <img
             src={recipe_data.image ? recipe_data.image : dummyImage}
-            style={styles.image}
+            style={
+              isSmallScreen
+                ? isExtraSmallScreen
+                  ? styles.extraSmallImage
+                  : styles.smallImage
+                : styles.image
+            }
           />
           {recipe_data.owner && recipe_data.owner.id == user.id && (
             <>

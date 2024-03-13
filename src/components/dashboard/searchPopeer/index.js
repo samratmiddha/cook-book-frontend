@@ -10,12 +10,15 @@ import {
   ListItemText,
   Chip,
   ClickAwayListener,
+  ListItemButton,
 } from "@mui/material"
 import {styles} from "./index.styles"
 import {BACKEND_HOST} from "../../../constants/urls"
+import {useNavigate} from "react-router"
 
 const SearchPopper = ({open, anchorEl, setOpen}) => {
   const searchResults = useSelector((state) => state.recipe.searchResults)
+  const navigate = useNavigate()
 
   const handleClose = () => {
     setOpen(false)
@@ -33,7 +36,12 @@ const SearchPopper = ({open, anchorEl, setOpen}) => {
         <Paper sx={styles.popperPaper}>
           <List>
             {searchResults.map((result) => (
-              <ListItem key={result.id}>
+              <ListItemButton
+                key={result.id}
+                onClick={() => {
+                  navigate(`/recipes/${result.id}/`)
+                }}
+              >
                 <img
                   src={`${BACKEND_HOST}${result.image}`}
                   alt={result.title}
@@ -49,7 +57,7 @@ const SearchPopper = ({open, anchorEl, setOpen}) => {
                   }
                   primaryTypographyProps={{sx: styles.title}}
                 />
-              </ListItem>
+              </ListItemButton>
             ))}
           </List>
         </Paper>
